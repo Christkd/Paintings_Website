@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Edit Painting</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Header -->
+            <div class="col-12">
+                <h1 class="text-center mb-4">Welcome {{user.first_name}}!</h1>
+            </div>
+            <!-- Buttons Logout and Dashboard -->
+            <div class="col-12 text-end">
+                <a href="/logout" class="btn btn-info border rounded-3 logout-btn">Logout</a>
+                <a href="/dashboard" class="btn btn-primary border rounded-3 addrecp-btn">Dashboard</a>
+            </div>
+        </div>
+        
+        <!-- Edit Painting Form -->
+        <form action="/update/painting" method="post" class="col-11 p-4 my-4 bg-dark text-light mx-auto">
+            <h2 class="text-info">Edit Painting</h2>
+            <!-- Flash Messages Display -->
+            {% with messages = get_flashed_messages(category_filter=['painting']) %}
+                {% if messages %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>!!!</strong>
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <!-- Edit Painting Details Section -->
+            <div class="col-12 col-md-6">
+                <input type="hidden" name="id" value="{{ edit.id }}">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" class="form-control" value="{{ edit.title }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea name="description" cols="30" rows="5" class="form-control">{{ edit.description }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="text" name="price" class="form-control" value="{{ edit.price }}">
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="col-12 text-center mt-4">
+                        <input type="submit" value="Update" class="btn btn-warning">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
